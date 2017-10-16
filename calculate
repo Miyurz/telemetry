@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+##
+# How to iterate a big log file which one column is dates , second event type and third how many times the event happened. you have to iterate 
+# and tell how many times an event happened between two timings 
+##
+
+set -eou pipefail
+
+
+function parseLogFile() {
+  
+    echo I am going to parge "$1"
+
+    declare -a timeData 
+    timeData=($(sort -u -t" " -k1,1 "$1" | awk '{print $1 }'))
+    uniqueTimeSeries=$(sort -u -t" " -k1,1 "$1" | awk '{print $1}' | wc -l )
+    echo unique time series count = "${uniqueTimeSeries}"
+
+    eventData=($(awk '{for (i=3; i<=NF; i++) printf $i; print $NF }' "$1"))
+    #echo event Data = "${eventData[@]}"
+    echo event Data length = "${#eventData[*]}"
+
+    #echo time Data = "${timeData[@]}"    
+    echo time Data length = "${#timeData[*]}"
+
+    #for i in "${eventData[@]}"
+    #do
+    #        echo event is "$i"
+    #done
+
+    #while IFS='' read -r line || [[ -n "$line" ]]; do
+    #    echo "Text read from file: $line"
+    #    sleep 2
+    #done < "${eventData[@]}"
+}
+
+main() {
+
+    if [ "$#" -eq "1" ];then
+        echo I got required args
+    else
+        echo "I got $# args"
+        exit 1
+        #echo "I got $(( $# - 1)) args"
+    fi
+
+    #echo Arguments passed to function  = "$*"
+    
+    [[ ! -f "$1" ]] &&  echo log file "$1" does not exists
+
+    parseLogFile "$1"
+}
+
+main "$@"
+#declare -f
