@@ -90,6 +90,7 @@
 
 - name: start prometheus
   service: name=prometheus state=started enabled=yes
+
 - name: start node-exporter
   service: name=prometheus_node_exporter state=started enabled=yes
 

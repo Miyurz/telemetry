@@ -164,7 +164,7 @@ resource "aws_security_group" "nat" {
 */
 resource "aws_security_group" "prometheus" {
     name = "vpc_prometheus"
-    description = "Allow incoming SSH connections and manage egress for other telemetry components along with prometheus"
+    description = "Allow incoming SSH connections from vpc cidr only + manage egress for other telemetry components along with prometheus"
 
     ingress {
         from_port = 22
