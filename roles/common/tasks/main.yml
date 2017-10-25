@@ -1,0 +1,36 @@
+# Induce an exception to see what happens
+
+- name: Install pip
+  become: true
+  apt:
+    name: python-pip
+    state: present
+
+- name: Install pip packages required for apt key signing
+  become: true
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ pip_packages }}"
+
+- name: Remove older and default versions of  docker shipped with distro
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ purge_packages }}"
+
+- name: Install packages to allow apt to use a repository over HTTPS
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ install_packages }}"
+
+- name: Add an Apt signing key, will not download if present
+  become: true
+  apt_key:
+    id: "{{ gpg_key }}"
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present

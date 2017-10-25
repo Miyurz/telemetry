@@ -33,3 +33,12 @@ destroy:
 
 clean:
 	rm -rf terraform.tfstate terraform.tfstate.backup 
+
+
+ifdef verbose
+run:
+	ansible-playbook ${verbose} -i inventory prometheus-servers.yml
+else
+run:
+	ansible-playbook -i inventory prometheus-servers.yml
+endif
