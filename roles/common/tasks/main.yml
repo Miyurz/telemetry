@@ -34,3 +34,26 @@
     id: "{{ gpg_key }}"
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
+
+- name: set up the stable repository
+  become: true
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu trusty stable
+    state: present
+    update_cache: yes
+
+# Run `apt-cache madison docker-ce` to get the latest docker version
+
+- name: Query for latest stable docker version
+  become: true
+  shell: apt-cache madison docker-ce | awk 'NR==1 { print $3 }'
+  register: docker_stable_version
+
+- debug: var=docker_stable_version.stdout_lines
+
+- name: Install stable version of docker 
+  become: true
+  apt:
+    name: "docker-ce={{ docker_stable_version.stdout }}"
+    state: present
+    update_cache: yes
