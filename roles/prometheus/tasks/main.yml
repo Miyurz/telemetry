@@ -1,0 +1,8 @@
+# Induce an exception to see what happens
+- name: Ping check
+  ping:
+    data: pong
+
+- name: Check ssh connection
+  local_action: shell ssh ubuntu@{{ inventory_hostname }} "echo success"
+  register: user_name

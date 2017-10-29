@@ -1,0 +1,4 @@
+---
+- import_playbook: prometheus-servers.yml
+- import_playbook: pushgateway-servers.yml
+- import_playbook: alertmanager-servers.yml

@@ -1,0 +1,25 @@
+[prometheus-servers]
+10.0.1.145
+10.0.1.225
+10.0.1.240
+
+[pushgateway-servers]
+
+
+[statsd-exporters] 
+
+
+[alert-managers]
+
+
+[influxDB-servers]
+
+
+#All components for the monitoring stack
+[monitoring-stack:children]
+prometheus-servers
+pushgateway-servers
+statsd-exporters
+alert-managers
+influxDB-servers
+

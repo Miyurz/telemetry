@@ -1,0 +1,3 @@
+---
+#Common vars for all groups
+ssh-banner: Monitoring stack

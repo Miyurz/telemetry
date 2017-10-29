@@ -1,0 +1,4 @@
+---
+#Packages common on all systems
+git_version "1.9.1"
+go_version: "1.9"

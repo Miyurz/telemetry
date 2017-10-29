@@ -1,0 +1,16 @@
+pip_packages:
+  - urllib3
+  - pyOpenSSL
+  - ndg-httpsclient
+  - pyasn1
+gpg_key: 0EBFCD88
+purge_packages: 
+  - docker 
+  - docker-engine 
+  - docker.io
+  - git
+install_packages: 
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - software-properties-common
